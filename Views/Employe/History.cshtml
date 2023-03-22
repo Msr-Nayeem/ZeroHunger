@@ -1,0 +1,45 @@
+﻿@model List<ZH.Dbf.RequestServe>
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_EmployeLayout.cshtml";
+}
+
+<h2>History</h2>
+<hr />
+@if (TempData["msg"] != null)
+{
+    <hr />
+    <div class="alert alert-info" role="alert">
+        <span>@TempData["msg"]</span><br />
+    </div>
+}
+
+<table class="table table-success table-bordered border-dark table-hover">
+    <tr class="table-warning border-dark">
+        <td>Request Id</td>
+        <td>Delivery person</td>
+        <td>Quantity</td>
+        <td>Status</td>
+
+    </tr>
+    @if (Model.Any())
+    {
+        foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.id</td>
+                <td>@items.Employe.name</td>
+                <td>@items.Request.quantity</td>
+                <td>@items.status</td>
+
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="3" class="text-center">No request Yet !</td>
+        </tr>
+    }
+
+</table>

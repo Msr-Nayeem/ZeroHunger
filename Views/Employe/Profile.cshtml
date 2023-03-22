@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_EmployeLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Employe Information</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <img src="" alt="EmployeImage">
+
+        </div>
+        <div class="col-md-6">
+
+            <table class="table table-bordered border-dark table-hover">
+                <tbody>
+
+                    <tr>
+                        <td>Name</td>
+                        <td>@Model.name</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>@Model.email</td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td>@Model.phone</td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                        <td>@Model.location</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="btn btn-primary" href="@(Request.UrlReferrer?.ToString() ?? Url.Action("Index", "Home"))">Back</a>
+        </div>
+    </div>
+</div>

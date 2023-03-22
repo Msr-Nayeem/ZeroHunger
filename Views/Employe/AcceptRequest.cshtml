@@ -1,0 +1,53 @@
+﻿@model List<ZH.Dbf.Employe>
+@{
+    ViewBag.Title = "Accept Request";
+    Layout = "~/Views/Shared/_EmployeLayout.cshtml";
+}
+
+@if (TempData["msg"] != null)
+{
+    <hr />
+    <div class="alert alert-info" role="alert">
+        <span>@TempData["msg"]</span><br />
+    </div>
+}
+
+
+<div class="form-horizontal">
+    <h2 class="text-center">Update Request</h2>
+    <hr />
+    <form action="/Employe/AcceptRequest" method="post" autocomplete="off">
+        <input type="number" name="requestId" value="@ViewBag.RequestId" hidden />
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="employeId">Assign Employe :</label>
+            <div class="col-md-10">
+                <select id="employeId" class="form-control" name="employeId">
+                    <option value="0"> Select Employe</option>
+                    @foreach (var items in Model)
+                    {
+                        <option value="@items.id">@items.name</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="status">Status :</label>
+            <div class="col-md-10">
+                <select id="status" class="form-control" name="status">
+                    <option value="update"> Update Status</option>
+                    <option value="Accepted"> Accepted</option>
+                    <option value="Collected">Collected</option>
+                    <option value="Distributed">Distributed</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Register Now" class="btn btn-default" />
+            </div>
+        </div>
+    </form>
+</div>

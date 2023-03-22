@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-info" role="alert">
+        <span>@TempData["msg"]</span><br />
+    </div>
+}
+
+<div class="jumbotron">
+    <p>
+        <h3><b>Zero Hunger</b></h3> is an NGO that works to feed deprived people and children in Dhaka city.
+        We have observed that a ton of food is wasted every day in the city.
+        To address this issue, we have partnered with some restaurants who
+        agreed to give us their leftover foods before they get rotten.
+        Our system allows you to automate your food collection process by opening a collect request
+        from your dashboard with the maximum time you can preserve the food.
+    </p>
+    @Html.ActionLink("As Restaurent manager", "RegRestaurent", "Home", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("As Employee", "RegEmploye", "Home", null, new { @class = "btn btn-primary" })
+
+</div>
+

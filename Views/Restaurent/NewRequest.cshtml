@@ -1,0 +1,46 @@
+﻿@model ZH.Dbf.Request
+@{
+    ViewBag.Title = "New Request";
+    Layout = "~/Views/Shared/_RestaurentLayout.cshtml";
+}
+
+<h2>NewRequest</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-info" role="alert">
+        <span>@TempData["msg"]</span><br />
+    </div>
+}
+
+
+<form action="/Restaurent/NewRequest" method="post">
+
+    <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="text" class="form-control" id="quantity" name="quantity" placeholder="For how many child ?" />
+        @Html.ValidationMessageFor(m => m.quantity, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label for="preserveTime">preserve Time:</label>
+        <input type="time" class="form-control" id="preserveTime" name="preserveTime" placeholder="preserveTime" />
+        @Html.ValidationMessageFor(m => m.preserveTime, "", new { @class = "text-danger" })
+    </div>
+
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Submit" class="btn btn-default" />
+        </div>
+    </div>
+</form>
+
+@if (Model != null)
+{
+    <div>
+        <p>@Model.quantity</p>
+        <p>@Model.preserveTime</p>
+    </div>
+}
+

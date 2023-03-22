@@ -1,0 +1,46 @@
+﻿@model List<ZH.Dbf.Request>
+@{
+    ViewBag.Title = "Requests";
+    Layout = "~/Views/Shared/_EmployeLayout.cshtml";
+}
+@if (TempData["msg"] != null)
+{
+    <hr />
+    <div class="alert alert-info" role="alert">
+        <span>@TempData["msg"]</span><br />
+    </div>
+}
+
+<h2>incoming Requests</h2>
+<hr />
+<table class="table table-success table-bordered border-dark table-hover">
+    <tr class="table-warning border-dark">
+        <td>Request Id</td>
+        <td>Quantity</td>
+        <td>Preserve Time</td>
+        <td>Status</td>
+        <td>Action</td>
+        <td>Cancel</td>
+    </tr>
+    @if (Model.Any())
+    {
+        foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.id</td>
+                <td>@items.quantity</td>
+                <td><a>@items.preserveTime</a></td>
+                <td>@items.status</td>
+                <td><a href="@Url.Action("AcceptRequest", "Employe", new { id = items.id,  status = items.status })">Update</a></td>
+                <td><a href="@Url.Action("CancelRequest", "Employe", new { id = items.id })">Cancel</a></td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="3" class="text-center">No request Yet !</td>
+        </tr>
+    }
+
+</table>

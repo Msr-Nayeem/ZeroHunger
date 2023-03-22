@@ -1,0 +1,44 @@
+﻿@model ZH.Dbf.RequestServe
+
+@{
+    ViewBag.Title = "Update Request";
+    Layout = "~/Views/Shared/_EmployeLayout.cshtml";
+}
+
+@if (TempData["msg"] != null)
+{
+    <hr />
+    <div class="alert alert-info" role="alert">
+        <span>@TempData["msg"]</span><br />
+    </div>
+}
+
+
+    <div class="form-horizontal">
+        <h2 class="text-center">Update Request</h2>
+        <hr />
+        <form action="/Employe/UpdateRequest" method="post" autocomplete="off">
+            <label>Request Serve id</label>
+            <input type="number" name="id" value="@Model.id" />
+            
+            <label> Request id frm request table</label>
+            <input type="number" name="id" value="@Model.requestId" />
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="status">Status :</label>
+                <div class="col-md-10">
+                    <select id="status" class="form-control" name="status">
+                        <option value="update"> Update Status</option>
+                        <option value="Collected">Collected</option>
+                        <option value="Distributed">Distributed</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Change Now" class="btn btn-default" />
+                </div>
+            </div>
+        </form>
+    </div>

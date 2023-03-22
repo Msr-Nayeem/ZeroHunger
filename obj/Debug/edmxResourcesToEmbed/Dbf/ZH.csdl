@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZeroHungerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Employe">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="RequestServes" Relationship="Self.FK_RequestServe_Employe" FromRole="Employe" ToRole="RequestServe" />
+    <NavigationProperty Name="Employe1" Relationship="ZeroHungerModel.FK_Employe_Employe" FromRole="Employe" ToRole="Employe1" />
+    <NavigationProperty Name="Employe2" Relationship="ZeroHungerModel.FK_Employe_Employe" FromRole="Employe1" ToRole="Employe" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="restaurentId" Type="Int32" Nullable="false" />
+    <Property Name="preserveTime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Restaurent" Relationship="Self.FK_Request_Restaurent" FromRole="Request" ToRole="Restaurent" />
+    <NavigationProperty Name="RequestServes" Relationship="Self.FK_RequestServe_Request" FromRole="Request" ToRole="RequestServe" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestServe">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="employeId" Type="Int32" Nullable="false" />
+    <Property Name="requestId" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Employe" Relationship="Self.FK_RequestServe_Employe" FromRole="RequestServe" ToRole="Employe" />
+    <NavigationProperty Name="Request" Relationship="Self.FK_RequestServe_Request" FromRole="RequestServe" ToRole="Request" />
+  </EntityType>
+  <EntityType Name="Restaurent">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Requests" Relationship="Self.FK_Request_Restaurent" FromRole="Restaurent" ToRole="Request" />
+    <NavigationProperty Name="Restaurent1" Relationship="ZeroHungerModel.FK_Restaurent_Restaurent" FromRole="Restaurent" ToRole="Restaurent1" />
+    <NavigationProperty Name="Restaurent2" Relationship="ZeroHungerModel.FK_Restaurent_Restaurent" FromRole="Restaurent1" ToRole="Restaurent" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_RequestServe_Employe">
+    <End Role="Employe" Type="Self.Employe" Multiplicity="1" />
+    <End Role="RequestServe" Type="Self.RequestServe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employe">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="RequestServe">
+        <PropertyRef Name="employeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Request_Restaurent">
+    <End Role="Restaurent" Type="Self.Restaurent" Multiplicity="1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurent">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="restaurentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestServe_Request">
+    <End Role="Request" Type="Self.Request" Multiplicity="1" />
+    <End Role="RequestServe" Type="Self.RequestServe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Request">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="RequestServe">
+        <PropertyRef Name="requestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ZHEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Employes" EntityType="Self.Employe" />
+    <EntitySet Name="Requests" EntityType="Self.Request" />
+    <EntitySet Name="RequestServes" EntityType="Self.RequestServe" />
+    <EntitySet Name="Restaurents" EntityType="Self.Restaurent" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_RequestServe_Employe" Association="Self.FK_RequestServe_Employe">
+      <End Role="Employe" EntitySet="Employes" />
+      <End Role="RequestServe" EntitySet="RequestServes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Request_Restaurent" Association="Self.FK_Request_Restaurent">
+      <End Role="Restaurent" EntitySet="Restaurents" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestServe_Request" Association="Self.FK_RequestServe_Request">
+      <End Role="Request" EntitySet="Requests" />
+      <End Role="RequestServe" EntitySet="RequestServes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employe_Employe" Association="ZeroHungerModel.FK_Employe_Employe">
+      <End Role="Employe" EntitySet="Employes" />
+      <End Role="Employe1" EntitySet="Employes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Restaurent_Restaurent" Association="ZeroHungerModel.FK_Restaurent_Restaurent">
+      <End Role="Restaurent" EntitySet="Restaurents" />
+      <End Role="Restaurent1" EntitySet="Restaurents" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Employe_Employe">
+    <End Type="ZeroHungerModel.Employe" Role="Employe" Multiplicity="1" />
+    <End Type="ZeroHungerModel.Employe" Role="Employe1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employe">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Employe1">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Restaurent_Restaurent">
+    <End Type="ZeroHungerModel.Restaurent" Role="Restaurent" Multiplicity="1" />
+    <End Type="ZeroHungerModel.Restaurent" Role="Restaurent1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurent">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Restaurent1">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
